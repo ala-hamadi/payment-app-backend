@@ -68,7 +68,7 @@ public class UserController {
   @PostMapping("/signin")
   public ResponseEntity<Object> authenticateUser(@RequestBody Users userReq) {
     if (!userService.isUserExistsByEmail(userReq.getEmail())) {
-      return new ResponseEntity<>(FOUND, HttpStatus.OK);
+      return new ResponseEntity<>(NOT_FOUND, HttpStatus.OK);
     }
 
     Authentication authentication = authenticationManager.authenticate(
