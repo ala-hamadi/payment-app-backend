@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,8 @@ import com.paymentappbackend.Security.services.UserDetailsImpl;
 import com.paymentappbackend.Service.UserService;
 
 @RestController
-@RequestMapping("/oauth")
+@RequestMapping("/public")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
 
@@ -80,7 +82,8 @@ public class UserController {
     UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
     return new ResponseEntity<>(new JwtResponse(jwt,
         userDetails.getId(),
-        userDetails.getEmail()
+        userDetails.getEmail(),
+        userDetails.getUsername()
     ), HttpStatus.OK);
   }
 }
