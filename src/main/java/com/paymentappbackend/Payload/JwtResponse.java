@@ -7,11 +7,14 @@ public class JwtResponse {
   private String type = "Bearer";
   private Integer id;
   private String email;
+  private String username;
 
-  public JwtResponse(String accessToken, Integer id, String email) {
+
+  public JwtResponse(String accessToken, Integer id, String email,String username) {
     this.token = accessToken;
     this.id = id;
     this.email = email;
+    this.username=username;
   }
 
   public String getAccessToken() {
@@ -46,4 +49,11 @@ public class JwtResponse {
     this.email = email;
   }
 
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
 }
