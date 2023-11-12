@@ -13,6 +13,7 @@ import com.paymentappbackend.Repository.UserRepository;
 
 @Service
 public class UserService {
+
   @Autowired
   private UserRepository userRepository;
   @Autowired
@@ -52,4 +53,15 @@ public class UserService {
 
     return userRepository.existsByEmail(email);
   }
+
+  public ResponseEntity<Users> getUserByEmail(String email) {
+
+    Optional<Users> user = userRepository.findByEmail(email);
+    if (user.isPresent()) {
+      return ResponseEntity.ok(user.get());
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+  }
+
 }

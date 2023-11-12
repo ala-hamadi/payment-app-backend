@@ -86,4 +86,18 @@ public class UserController {
         userDetails.getUsername()
     ), HttpStatus.OK);
   }
+
+  @GetMapping(value = "/getUserByEmail/{email}")
+  public ResponseEntity<Object> getUserByEmail(@PathVariable("email") String email) {
+    ResponseEntity<Users> user = userService.getUserByEmail(email);
+    if (user.getStatusCodeValue() == 200) {
+      return new ResponseEntity<>(user.getBody(), HttpStatus.OK);
+    } else if (user.getStatusCodeValue() == 404) {
+      return new ResponseEntity<>(NOT_FOUND, HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(NULL, HttpStatus.OK);
+
+    }
+  }
+
 }
