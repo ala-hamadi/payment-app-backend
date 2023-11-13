@@ -22,7 +22,7 @@ public class ProductService {
   private UserRepository userRepository;
 
   public List<Products> getAllProducts() {
-    return productRepository.findAll();
+    return productRepository.findAllAvailableProducts();
   }
 
   public Optional<Products> getProductById(int id) {
