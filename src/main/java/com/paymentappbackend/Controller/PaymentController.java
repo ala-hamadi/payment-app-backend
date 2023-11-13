@@ -23,7 +23,7 @@ public class PaymentController {
   @Autowired
   private PaymentService paymentService;
 
-  @PostMapping("/private/addPayment")
+  @PostMapping("/public/addPayment")
   public ResponseEntity<Object> addPayment(@RequestBody Payments paymentReq) {
     ResponseEntity<Payments> paymentRes = paymentService.addPayment(paymentReq);
     if (paymentRes.getStatusCodeValue() == 200) {

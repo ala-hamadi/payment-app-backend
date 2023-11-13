@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.paymentappbackend.Entity.Products;
 import com.paymentappbackend.Entity.Users;
+import com.paymentappbackend.Payload.CartReq;
 import com.paymentappbackend.Repository.ProductRepository;
 import com.paymentappbackend.Repository.UserRepository;
 
@@ -52,6 +53,30 @@ public class ProductService {
     user.get().getCart().remove(product.get());
     userRepository.save(user.get());
     return user.get();
+  }
+
+
+  public String decreaseQuantityInProducts(List<CartReq> cart) {
+    for (CartReq product : cart) {
+      Integer productId = product.getId();
+      Optional<Products> dbProduct = productRepository.findById(productId);
+      dbProduct.get().setInventory(dbProduct.get().getInventory() - product.getQuantity());
+      productRepository.save(dbProduct.get());
+    }
+    return "UPDATED";
+  }
+
+  public Users removeAllProductsFromCart(Integer userId) {
+    Optional<Users> userOptional = userRepository.findById(userId);
+    if (userOptional.isPresent()) {
+      Users user = userOptional.get();
+      user.getCart().clear();
+
+      userRepository.save(user);
+      return user;
+    } else {
+      return null;
+    }
   }
 
 }
